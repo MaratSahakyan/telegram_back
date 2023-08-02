@@ -14,7 +14,7 @@ export const ORMConfig = {
     password: configService.get<string>('DATABASE_PASSWORD'),
     database: configService.get<string>('DATABASE_NAME'),
     autoReconnect: true,
-    entities: [`src/**/*.entity.${isCompiled ? 'js' : 'ts'}`],
+    entities: [`dist/**/**/*.entity.${isCompiled ? 'js' : 'ts'}`],
     migrations: [`src/migration/**/*.${isCompiled ? 'js' : 'ts'}`],
     synchronize: configService.get<boolean>('DATABASE_SYNCHRONIZE'),
     cli: {

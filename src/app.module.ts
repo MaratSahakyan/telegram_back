@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import 'reflect-metadata';
 import { ORMConfig } from '../ormconfig';
-import { TodoModule } from './todo/todo.module';
+import { UserModule } from './user/users.module';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { TodoModule } from './todo/todo.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    TodoModule,
+    UserModule,
   ],
   providers: [],
 })
