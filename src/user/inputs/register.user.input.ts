@@ -1,15 +1,22 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsPhoneNumber, IsString, Length, Matches } from 'class-validator';
+import {
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  Length,
+  Matches,
+} from 'class-validator';
 import { constant } from 'src/common/constant';
 
-@InputType()
-export class RegisterUserDTO {
+@InputType('RegisterUserInput')
+export class RegisterUserInput {
   @Field({ nullable: false, description: 'user input value for first name' })
   @IsString()
   @Length(3, 50, { message: constant.INVALID_FIRST_NAME_RANGE_MESSAGE })
   firstName: string;
 
-  @Field({ description: 'user input value for last name' })
+  @Field({ nullable: true, description: 'user input value for last name' })
+  @IsOptional()
   @IsString()
   @Length(3, 50, { message: constant.INVALID_LAST_NAME_RANGE_MESSAGE })
   lastName: string;

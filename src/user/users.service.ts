@@ -7,20 +7,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { constant } from 'src/common/constant';
 import { hashPassword } from 'src/common/helper';
 import { Repository } from 'typeorm';
-import { RegisterUserDTO } from './dto/registerUserDTO';
-import { User } from './entities/user.entity';
+import { UserModel } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @InjectRepository(UserModel)
+    private userRepository: Repository<UserModel>,
   ) {}
 
   async findByUserID(userID: string) {
     const findUser = await this.userRepository.findOne({
       where: { id: userID },
-      select: ['id'],
     });
     if (!findUser) {
       throw new NotFoundException(constant.USER_DOES_NOT_EXIST);
@@ -28,11 +26,11 @@ export class UserService {
     return findUser;
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserModel[]> {
     return this.userRepository.find();
   }
 
-  async registerUser(registerUserData: RegisterUserDTO) {
+  async registerUser(registerUserData): Promise<UserModel> {
     const { firstName, lastName, phone, password } = registerUserData;
     const phoneNumber = phone.replace(/[^0-9]/g, '');
     const findOneData = await this.userRepository.findOne({
@@ -46,15 +44,11 @@ export class UserService {
 
     const hashPasswordValue = await hashPassword(password);
 
-    const dataObject: RegisterUserDTO = {
+    return this.userRepository.save({
       firstName,
       lastName,
       phone: phoneNumber,
       password: hashPasswordValue,
-    };
-
-    const createUserQuery = this.userRepository.create(dataObject);
-    const saveUserData: User = await this.userRepository.save(createUserQuery);
-    return saveUserData;
+    });
   }
 }

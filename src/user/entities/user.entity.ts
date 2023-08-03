@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 
 @ObjectType('User')
-@Entity()
-export class User {
+@Entity('user')
+export class UserModel {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -21,7 +21,7 @@ export class User {
   firstName: string;
 
   @Field()
-  @Column('varchar')
+  @Column('varchar', { nullable: true })
   @Length(2, 25)
   lastName: string;
 

@@ -1,34 +1,25 @@
 import { Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User } from './entities/user.entity';
+import { UserDTO } from './dto/user.DTO';
+import { RegisterUserInput } from './inputs/register.user.input';
 import { UserService } from './users.service';
 
-@Resolver(() => User)
+@Resolver(() => UserDTO)
 export class UserResolver {
   constructor(@Inject(UserService) private usersService: UserService) {}
 
-  @Query(() => User)
-  async user(@Args('id') id: string): Promise<User> {
+  @Query(() => UserDTO)
+  async user(@Args('id') id: string): Promise<UserDTO> {
     return await this.usersService.findByUserID(id);
   }
 
-  @Query(() => [User])
-  async users(): Promise<User[]> {
+  @Query(() => [UserDTO])
+  async users(): Promise<UserDTO[]> {
     return this.usersService.findAll();
   }
 
-  @Mutation(() => User)
-  async createUser(
-    @Args('firstName') firstName: string,
-    @Args('lastName') lastName: string,
-    @Args('phone') phone: string,
-    @Args('password') password: string,
-  ): Promise<User> {
-    return this.usersService.registerUser({
-      firstName,
-      lastName,
-      phone,
-      password,
-    });
+  @Mutation(() => UserDTO)
+  async createUser(@Args('input') input: RegisterUserInput): Promise<UserDTO> {
+    return this.usersService.registerUser(input);
   }
 }

@@ -2,26 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: ID!
+type UserDTO {
+  id: String!
   firstName: String!
   lastName: String!
   phone: String!
   password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Query {
-  user(id: String!): User!
-  users: [User!]!
+  user(id: String!): UserDTO!
+  users: [UserDTO!]!
 }
 
 type Mutation {
-  createUser(firstName: String!, lastName: String!, phone: String!, password: String!): User!
+  createUser(input: RegisterUserInput!): UserDTO!
+}
+
+input RegisterUserInput {
+  """user input value for first name"""
+  firstName: String!
+
+  """user input value for last name"""
+  lastName: String
+
+  """user input value for phone number"""
+  phone: String!
+
+  """user input value for password"""
+  password: String!
 }
