@@ -30,4 +30,7 @@ export const constant = {
   YOU_ALREADY_BUY_THIS_ORDER: 'You already purchased this item',
   PURCHASED_ORDER_SUCCESS_MESSAGE:
     'Congratulations!, you have successfully place your order',
+  USER_DELETED: 'User deleted successfully',
+  USER_DELETED_FAIL: 'Failed to Delete User',
+  PHONE_DOES_NOT_EXIST: 'The provided phone number is wrong',
 };

@@ -10,13 +10,13 @@ import {
 
 @ObjectType('User')
 @Entity('user')
-export class UserModel {
+export class UserEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Field()
-  @Column('varchar', { nullable: false })
+  @Column('varchar')
   @Length(2, 25)
   firstName: string;
 
@@ -26,11 +26,16 @@ export class UserModel {
   lastName: string;
 
   @Field()
-  @Column('varchar', { nullable: false })
+  @Column('varchar', { nullable: true, unique: true })
+  @Length(2, 25)
+  username: string;
+
+  @Field()
+  @Column('varchar')
   phone: string;
 
   @Field()
-  @Column('varchar', { nullable: false })
+  @Column('varchar')
   @Length(8, 50)
   password: string;
 
@@ -40,7 +45,7 @@ export class UserModel {
   createdAt: Date;
 
   @Field()
-  @Column()
+  @Column({ update: false })
   @UpdateDateColumn()
   updatedAt: Date;
 }

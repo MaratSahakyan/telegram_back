@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ResponseDTO {
+  status: Float!
+  message: String!
+}
+
 type UserDTO {
   id: String!
   firstName: String!
@@ -17,6 +22,9 @@ type Query {
 
 type Mutation {
   createUser(input: RegisterUserInput!): UserDTO!
+  userLogin(input: LoginUserInput!): UserDTO!
+  updateUser(input: UpdateUserInput!): UserDTO!
+  deleteUser(input: DeleteUserInput!): ResponseDTO!
 }
 
 input RegisterUserInput {
@@ -31,4 +39,32 @@ input RegisterUserInput {
 
   """user input value for password"""
   password: String!
+}
+
+input LoginUserInput {
+  phone: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  id: ID!
+
+  """user input value for first name"""
+  firstName: String
+
+  """user input value for phone number"""
+  phone: String
+
+  """user input value for last name"""
+  lastName: String
+
+  """user input value for user name"""
+  username: String
+
+  """user input value for password"""
+  password: String
+}
+
+input DeleteUserInput {
+  id: String!
 }
