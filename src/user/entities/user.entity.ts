@@ -40,6 +40,10 @@ export class UserEntity {
   password: string;
 
   @Field()
+  @Column('varchar')
+  hashedRt: string;
+
+  @Field()
   @Column()
   @CreateDateColumn()
   createdAt: Date;

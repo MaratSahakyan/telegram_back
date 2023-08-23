@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
 import { DeleteUserInput } from './inputs/delete.user.input';
 import { LoginUserInput } from './inputs/login.user.input';
+import { RegisterUserInput } from './inputs/register.user.input';
 import { UpdateUserInput } from './inputs/update.user.input';
 
 @Injectable()
@@ -36,7 +37,7 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  async registerUser(registerUserData): Promise<UserEntity> {
+  async registerUser(registerUserData: RegisterUserInput): Promise<UserEntity> {
     const { firstName, lastName, phone, password } = registerUserData;
     const phoneNumber = phone.replace(/[^0-9]/g, '');
     const findOneData = await this.userRepository.findOne({

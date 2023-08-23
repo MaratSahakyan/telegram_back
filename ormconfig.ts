@@ -18,8 +18,9 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     username: configService.get<string>('TYPEORM_USERNAME'),
     password: configService.get<string>('TYPEORM_PASSWORD'),
     database: configService.get<string>('TYPEORM_DATABASE'),
-    entities: ['src/**/**/*.entity.js'],
-    migrations: ['src/migrations/*.js'],
+    entities: [`${__dirname}src/**/**/*.entity.{ts,js}`],
+    migrations: [`${__dirname}src/migrations/*.{ts,js}`],
+    autoLoadEntities: true,
     extra: {
       charset: 'utf8mb4_unicode_ci',
     },
@@ -39,8 +40,8 @@ export const typeOrmConfig = new DataSource({
   username: configService.get<'string'>('TYPEORM_USERNAME'),
   password: configService.get<'string'>('TYPEORM_PASSWORD'),
   database: configService.get<'string'>('TYPEORM_DATABASE'),
-  entities: ['src/**/**/*.entity.ts'],
-  migrations: ['src/migrations/*.ts'],
+  entities: ['src/**/**/*.entity.{ts,js}'],
+  migrations: ['src/migrations/*.{ts,js}'],
   extra: {
     charset: 'utf8mb4_unicode_ci',
   },
