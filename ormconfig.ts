@@ -20,6 +20,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     database: configService.get<string>('TYPEORM_DATABASE'),
     entities: ['src/**/**/*.entity.js'],
     migrations: ['src/migrations/*.js'],
+    autoLoadEntities: true,
     extra: {
       charset: 'utf8mb4_unicode_ci',
     },
