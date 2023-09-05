@@ -1,10 +1,12 @@
 import { compare, hash } from 'bcrypt';
 import { constant } from './constant';
 
-const hashPassword = async (plainPassword: string) =>
-  hash(plainPassword, constant.HASH_SALT_COUNT);
+const hashData = async (string: string) =>
+  hash(string, constant.HASH_SALT_COUNT);
 
-const comparePassword = async (plainPassword: string, hashPassword: string) =>
-  compare(plainPassword, hashPassword);
+const compareData = async (string: string, hashedString: string) =>
+  compare(string, hashedString);
 
-export { hashPassword, comparePassword };
+const removeNonDigits = (inputString) => inputString.replace(/\D/g, '');
+
+export { hashData, compareData, removeNonDigits };

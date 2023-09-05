@@ -7,64 +7,79 @@ type ResponseDTO {
   message: String!
 }
 
-type UserDTO {
-  id: String!
+type AuthDTO {
   firstName: String!
   lastName: String!
+  username: String
   phone: String!
-  password: String!
+  role: String!
+  accessToken: String!
+  refreshToken: String!
+}
+
+type TokenDTO {
+  accessToken: String!
+  refreshToken: String!
 }
 
 type Query {
-  user(id: String!): UserDTO!
-  users: [UserDTO!]!
+  hello: AuthDTO!
 }
 
 type Mutation {
-  createUser(input: RegisterUserInput!): UserDTO!
-  userLogin(input: LoginUserInput!): UserDTO!
-  updateUser(input: UpdateUserInput!): UserDTO!
-  deleteUser(input: DeleteUserInput!): ResponseDTO!
+  signup(input: SignupInput!): AuthDTO!
+  signin(input: SigninInput!): AuthDTO!
+  refreshTokens(input: RefreshTokensInput!): TokenDTO!
+  logout(id: String!): ResponseDTO!
 }
 
-input RegisterUserInput {
-  """user input value for first name"""
+input SignupInput {
+  """
+  input for first name
+  """
   firstName: String!
 
-  """user input value for last name"""
+  """
+  input for last name
+  """
   lastName: String
 
-  """user input value for phone number"""
-  phone: String!
-
-  """user input value for password"""
-  password: String!
-}
-
-input LoginUserInput {
-  phone: String!
-  password: String!
-}
-
-input UpdateUserInput {
-  id: ID!
-
-  """user input value for first name"""
-  firstName: String
-
-  """user input value for phone number"""
-  phone: String
-
-  """user input value for last name"""
-  lastName: String
-
-  """user input value for user name"""
+  """
+  input for user name
+  """
   username: String
 
-  """user input value for password"""
-  password: String
+  """
+  input for phone number
+  """
+  phone: String!
+
+  """
+  input for password
+  """
+  password: String!
 }
 
-input DeleteUserInput {
+input SigninInput {
+  """
+  input for phone number
+  """
+  phone: String!
+
+  """
+  input for password
+  """
+  password: String!
+}
+
+input RefreshTokensInput {
+  """
+  input for ID
+  """
   id: String!
+
+  """
+  input for refresh token
+  """
+  refreshToken: String!
 }

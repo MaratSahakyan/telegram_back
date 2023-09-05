@@ -8,25 +8,31 @@ import {
 } from 'class-validator';
 import { constant } from 'src/common/constant';
 
-@InputType('RegisterUserInput')
-export class RegisterUserInput {
-  @Field({ nullable: false, description: 'user input value for first name' })
+@InputType('SignupInput')
+export class SignupInput {
+  @Field({ description: 'input for first name' })
   @IsString()
   @Length(3, 50, { message: constant.INVALID_FIRST_NAME_RANGE_MESSAGE })
   firstName: string;
 
-  @Field({ nullable: true, description: 'user input value for last name' })
+  @Field({ nullable: true, description: 'input for last name' })
   @IsOptional()
   @IsString()
   @Length(3, 50, { message: constant.INVALID_LAST_NAME_RANGE_MESSAGE })
   lastName: string;
 
-  @Field({ nullable: false, description: 'user input value for phone number' })
+  @Field({ nullable: true, description: 'input for user name' })
+  @IsOptional()
+  @IsString()
+  @Length(3, 15, { message: constant.INVALID_USER_NAME_RANGE_MESSAGE })
+  username?: string;
+
+  @Field({ description: 'input for phone number' })
   @IsString()
   @IsPhoneNumber()
   phone: string;
 
-  @Field({ nullable: false, description: 'user input value for password' })
+  @Field({ description: 'input for password' })
   @IsString()
   @Matches(
     /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,16}$/,
